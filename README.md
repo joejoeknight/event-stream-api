@@ -1,5 +1,7 @@
 # event-stream-api
 
+[![Join the chat at https://gitter.im/joejoeknight/event-stream-api](https://badges.gitter.im/joejoeknight/event-stream-api.svg)](https://gitter.im/joejoeknight/event-stream-api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Demo for Melbourne Scala User Group.
 
 ## Quick Start
