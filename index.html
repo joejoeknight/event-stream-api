@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Event-stream-api by joejoeknight</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Event-stream-api</h1>
+        <h2>Restful Event Stream API built with Free monads</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/joejoeknight/event-stream-api/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/joejoeknight/event-stream-api/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/joejoeknight/event-stream-api" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="-event-stream-api" class="anchor" href="#-event-stream-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a># event-stream-api</h1>
+
+<p>Demo for Melbourne Scala User Group.</p>
+
+<h2>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start</h2>
+
+<pre><code>    ./sbt run
+</code></pre>
+
+<p>and to bootstrap with some data:</p>
+
+<pre><code>    cd /src/test/resources
+    ./play.sh
+</code></pre>
+
+<h2>
+<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Actions</h2>
+
+<p>This is a system that store deltas or events that can be replayed to represent the state of an entity.  It has a 
+REST like interface to save, retrieve and snapshot events.</p>
+
+<p>Events can be streamed for downstream clients wishing to consumer events.</p>
+
+<p>Here are the current actions:</p>
+
+<ul>
+<li>
+<code>POST /event</code> with an event body </li>
+<li>
+<code>GET /events</code> --&gt; a paginated stream of events (optional params <code>?pageSize=10&amp;pageNumber=1&amp;systemName=&lt;systemName&gt;</code>)</li>
+<li>
+<code>GET /events/&lt;enitiyId&gt;</code> --&gt; a paginated stream of events for the given entity Id (optional params <code>?pageSize=10&amp;pageNumber=1&amp;systemName=&lt;systemName&gt;</code>)</li>
+<li>
+<code>GET /entity&lt;entityId&gt;/&lt;systemName&gt;</code> --&gt; replays the events building up the entity (optionally pass through the point in time <code>?at=2015-05-25T12:00:00Z</code>)</li>
+<li>
+<code>POST /snapshot/&lt;entityId&gt;/&lt;systemName&gt;/&lt;time&gt;</code> --&gt; Creates a snapshot for the entity at the supplied time.</li>
+</ul>
+
+<h2>
+<a id="database-setup" class="anchor" href="#database-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Database setup</h2>
+
+<p>You can use the in memory mutable map by default or you can configure a postgresql database by uncommenting the following line in
+<code>Main.scala</code>:</p>
+
+<pre><code>  //private val db = new SlickDatabase("events", "events",
+  //  "jdbc:postgresql://localhost/events", "org.postgresql.Driver")
+
+  //private val eventStoreInterpreter = new SqlInterpreter(db)
+  //Try(sqlInterpreter.createDDL())
+</code></pre>
+
+<p>and comment out:</p>
+
+<div class="highlight highlight-source-scala"><pre>    <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">eventStoreInterpreter</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MutableMapEventStoreInterpreter</span>()</pre></div>
+
+<p>You will need a running postgresql server with a database called <code>events</code> and a user called <code>events</code> with password
+<code>events</code>.</p>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-71332505-4 ");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
